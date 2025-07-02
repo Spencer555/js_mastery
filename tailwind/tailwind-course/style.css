@@ -1,0 +1,10 @@
+    body {
+        background-color: #10172a;
+    }
+    
+    @theme {
+        --color-clifford: #da373d;
+    }
+
+/* to allow users to turn on and turn off darkmode */
+    /* @custom-variant dark (&:where(.dark,.dark *)) */

@@ -1,0 +1,96 @@
+image - code runstime systools and libraries
+
+container - takes instructions from the image to do the app or what it has to 
+there can be multiple contianers from an image 
+
+volume - a persistent data storage mechanism that allows data to be shared between a docker container and a host machine, it ensures data durability and persistence even if the container is stopped or remove
+
+
+network - a commu chanell that allows dif containers to talk to each other or with the external world 
+
+
+
+docker client where we issue instructions workflow is distributed into 3 parts 
+docker client - the user interface for interacting with docker the tool we use to give docker commands or a gui instructing it to build run or manage images
+
+docker host - docker daemon it manages containers on host sys, listens for commands, build images and handle docker related tasks 
+ 
+docker registry - dockerhub - a centralized repo of docker images
+
+
+docker image is created with the dockerfile this file tells docker how to build an image for ur app 
+examples of some commands 
+
+FROM image[:tag] [AS name]
+this is  the base image 
+FROM ubuntu:20.04
+
+workdir 
+
+WORKDIR /path/to/workdir 
+it sets the working directory for the ff instructions 
+
+
+
+copy 
+copies the files or directories from the build context to the image 
+
+COPY [--chown=<user>:<group>] <src>... <dest>
+
+
+
+run 
+executes the command in shell during image build
+RUN <command> 
+
+RUN npm run dev
+
+
+
+EXPOSE <port> [<port>/<protocol>...]
+
+Expose 3000
+
+it informs docker the contianer  would listen on the specified port number at runstime
+
+
+
+ENV KEY=VALUE 
+
+example to set env variables
+ENV NODE_ENV=production 
+
+
+args are build time variables 
+
+
+VOLUME 
+create a mount point for externally mounted folders 
+
+
+CMD 
+provides diff commands to execute when the container start 
+
+CMD ["param1", "param2"]
+
+
+ENTRYPOINT 
+specifies the default executable to be run when the container starts 
+
+CMD npm run dev 
+
+ENTRYPOINT not the same as cmd, cmd is flexible and can be overwrittern entrypoint cannot be easily overwrittern 
+
+
+think of cmd as a default executable and entrypoint as a fixed starting point 
+
+
+
+create your own image
+
+
+docker build -t hello-docker .
+
+
+docker run -it docker-name sh 
+to get into shell
