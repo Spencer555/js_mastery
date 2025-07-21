@@ -94,3 +94,71 @@ docker build -t hello-docker .
 
 docker run -it docker-name sh 
 to get into shell
+
+
+u build first then run it with docker included 
+
+
+to run with port mapping 
+
+docker run -p 5137:5137 react-docker 
+
+
+allow updates to reflect immediately 
+
+
+telling docker to mount the current working directory where we run docker run command  into the app container 
+this let local code be linked to container and changes made locally are reflected inside running container 
+
+-v stands for volume we are creating a volume to keep track of all those changes
+we also create a volume to mount our node moudles with the last -v so that the container uses the existing node modules     
+
+
+for linux
+docker run -p 5173:5173 -v "$(pwd):/app"  -v /app/node_modules react-docker
+
+
+for windows -use powershell
+docker run -p 5173:5173 -v "${PWD}:/app" -v /app/node_modules react-docker
+
+
+how to publish app
+
+docker login 
+docker tag react-docker your-username/name-of-image
+docker push your-username/name-of-container 
+
+
+doing all these is tedious so we can improve with docker compose
+
+
+docker compose allows us define and manage multi docker contianer applications using yaml file to configure services, network, volumes enabling us to run inscale the entire app in a single command
+
+with just docker compose up
+
+
+docker also provides a cli to generate the files for us its called docker init 
+just run 
+docker init
+
+
+docker compose watch
+watches for updates and handles it automatically
+
+with it we can do three things 
+
+syncing making sure everything stays up to date in realtime - this is handly when working on real app 
+
+rebuild - it starts with the creation of new container images then it updates the services this is beneficial when rolling out changes to app in production - guranting the most recent version of the code is in production 
+
+sync-restart - merges the sync and rebuild process it begins by syncing modifications from the host file sys to the container parts and then restarting the container this is beneficial during dev and testing of apps to ensure immediate reflection of changes in the running applications
+
+
+after running docker compose up if u want changes made to reflect instantly run 
+docker compose watch
+
+
+docker scout is a tool that lets us be proactive about security 
+it scans our continer images looks at all the layers and software pieces like building block and creates a detailed list called (sbom) software bill of materials 
+
+we can use docker scout thru docker desktop, docker cli and docker hub

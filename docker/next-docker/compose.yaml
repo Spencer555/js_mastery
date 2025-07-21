@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile 
+    ports:
+      - 3000:3000
+
+    develop:
+    # this is for docker watch
+      watch:
+        - path: ./package.json 
+          action: rebuild
+
+        - path: ./next.config.json
+          action: rebuild
+
+        - path: ./package-lock.json 
+          action: rebuild 
+
+          # path: . means for all other files  and sync syncs the container with host machine
+        - path: .
+          target: /app
+          action: sync
+
+    environment:
+      - DB_URL=mongodb+srv://sujata:rnZzJjIDr3bIDr3bIDymV@cluster0.hnn88vs.mongodb.net/
+
+      # this is a remote instance if its a local instance with ports num passwords etc
+
+
+volumes:
+      tasked: 
+      
